@@ -26,9 +26,6 @@ class CreatePropertyValuesTable extends Migration
             $table->integer('order')->default(0);
             $table->timestamps();
 
-            $table->foreign('property_id')
-                ->references('id')->on('properties')
-                ->onDelete('cascade');
             
             $table->index(['property_id', 'is_active'], 'active_property_value');
             $table->index('order', 'position');

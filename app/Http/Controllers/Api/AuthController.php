@@ -72,16 +72,18 @@ class AuthController extends ApiController
      */
     public function registration(Request $request)
     {
+        // dd('test');
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
-            'password_confirmation' => 'required|min:6',
+            // 'password_confirmation' => 'required|min:6'
         ]);
         $credentials = request(['name','email', 'password']);
         $user = User::create($credentials);
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized'], 404);
         }
         return $this->respondWithToken($token);
     }
@@ -181,4 +183,44 @@ class AuthController extends ApiController
           ]
       ]);
     }
+    
+    public function editProfile(Request $request)
+    {
+      $id = $request->id;
+      $profile = User::find($id);
+      if($request->isMethod('post')){
+          $data = $request->input();
+          // $data['password'] = \Hash::make($data['password']);
+          // if(empty($data['password'])){
+          //     $data['password'] = $profile->password;
+          // }
+
+          $profile->update($data);
+          $save = $profile->save();
+             if($save){
+              return response()->json([
+                  'code' => 200,
+                  'data' => [
+                      'message' => 'Updated profile!'
+                  ]
+            ]);
+          }else{
+              return response()->json([
+                  'data' => [
+                      'message' => 'Error to updated profile!'
+                  ]
+            ]);
+          }
+      }else{
+          if($request->isMethod('get')){
+              return response()->json([
+                  'data' => [
+                      'message' => 'This query worked to POST type!'
+                  ]
+            ]);
+          }                
+      }
+      // dd($id);
+
+  }
 }

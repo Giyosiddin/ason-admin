@@ -25,16 +25,21 @@ Route::group([
   Route::post('logout', 'Api\AuthController@logout');
   Route::post('refresh', 'Api\AuthController@refresh');
   Route::post('me', 'Api\AuthController@me');
+
+ Route::post('edit-profile', 'Api\AuthController@editProfile');
+
 });
 Route::group([
   'middleware' => 'api',
 ], function ($router) {
+
     Route::resource('products', 'Api\ProductController');
     Route::resource('orders', 'Api\OrderController');
     Route::resource('cart', 'Api\CartController');
     Route::resource('countries', 'Api\CountryController');
     Route::resource('categories', 'Api\CategoryController');
     Route::resource('brands', 'Api\BrandController');
+    Route::resource('banners', 'Api\BannerController');
     Route::resource('vacancies', 'Api\VacancyController');
     Route::group(['prefix' => 'pages'], function(){
       Route::get('home', 'Api\PageController@home');
