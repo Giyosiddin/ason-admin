@@ -31,7 +31,8 @@ class BrandController extends ApiController
    */
   public function index()
   {
-      $brands = Brand::first();
+    // dd('test');
+      $brands = Brand::all();
       return $this->response->get(['brands' => [$brands, new BrandTransformer]]);
   }
 }

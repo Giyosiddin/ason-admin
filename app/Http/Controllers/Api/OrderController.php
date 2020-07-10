@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Order;
+use App\User;
 use Illuminate\Http\Request;
+use App\Transformer\OrderTransformer;
 use App\Http\Controllers\Controller;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 
-class OrderController extends Controller
+class OrderController extends ApiController
 {
+      public function __construct(Response $response)
+    {
+        parent::__construct($response);
+        $this->middleware('auth:api', ['except' => ['login','registration']]);
+    }
+
     /**
      * @OA\Get(
      *     path="/orders",
@@ -40,7 +48,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = auth()->orders;
+        // $orders = User::with('orders')->find(\Auth::id());
+        // dd($orders);
+        $orders = auth()->user()->orders;
+        // dd($orders);
         return $this->response->get(['orders' => [$orders, new OrderTransformer]]);
     }
 
