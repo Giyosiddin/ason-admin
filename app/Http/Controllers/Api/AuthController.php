@@ -8,6 +8,7 @@ use App\Transformer\UserTransformer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\ApiController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends ApiController
 {
@@ -70,20 +71,21 @@ class AuthController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public $successStatus = 200;
+
     public function registration(Request $request)
     {
         // dd('test');
-
-        $this->validate($request, [
+    $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-            // 'password_confirmation' => 'required|min:6'
+            // 'email' => 'required|email|unique:users,email',
+            // 'password' => 'required|min:6|confirmed',
+            // 'password_confirmation' => 'required|min:6',
         ]);
         $credentials = request(['name','email', 'password']);
         $user = User::create($credentials);
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 404);
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
     }
