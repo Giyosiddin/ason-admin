@@ -78,9 +78,9 @@ class AuthController extends ApiController
         // dd('test');
     $this->validate($request, [
             'name' => 'required',
-            // 'email' => 'required|email|unique:users,email',
-            // 'password' => 'required|min:6|confirmed',
-            // 'password_confirmation' => 'required|min:6',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
         ]);
         $credentials = request(['name','email', 'password']);
         $user = User::create($credentials);
