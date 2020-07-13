@@ -17,16 +17,18 @@
                     'id' => 1,
                     'name' => 'admin',
                     'email' => 'a@a.ru',
-                    'password' => bcrypt(12345678),
+                    'password' => 12345678,
                 ],
                 [
                     'id' => 2,
                     'name' => 'user',
                     'email' => 'u@u.ru',
-                    'password' => bcrypt(12345678),
+                    'password' => 12345678,
                 ]
             ];
-            DB::table('users')->insert($data);
+            foreach ($data as $item) {
+                \App\User::updateOrCreate(['email' => $item['email']], $item);
+            }
         }
 
     }

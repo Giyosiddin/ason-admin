@@ -3,17 +3,20 @@ namespace App\Transformer;
 
 use App\Category;
 use League\Fractal\TransformerAbstract;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['children', 'parent', 'products'];
     protected $defaultIncludes = ['children'];
+
     public function transform(Category $category)
     {
         return [
             'id' => $category->id,
             'title' => $category->title,
             'slug' => $category->slug,
+            'image' => url(Storage::url($category->image)),
             'order' => $category->order,
         ];
     }

@@ -9,6 +9,15 @@ class Category extends Model
 {
   use NodeTrait;
 
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+    'title', 'slug', 'parent_id', 'is_active', 'order', 'left', 'right', 'image'
+  ];
+
   public function parent(){
     return $this->belongsTo('App\Category','parent_id');
   }
