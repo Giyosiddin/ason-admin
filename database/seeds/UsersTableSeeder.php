@@ -26,7 +26,9 @@
                     'password' => 12345678,
                 ]
             ];
-            DB::table('users')->insert($data);
+            foreach ($data as $item) {
+                \App\User::updateOrCreate(['email' => $item['email']], $item);
+            }
         }
 
     }

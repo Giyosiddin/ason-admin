@@ -42,7 +42,15 @@ class ProductController extends ApiController
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::query();
+        if (is_array(request()->get('categories'))){
+            $categories = request()->get('categories');
+            $products->whereHas('categories', function($query) use ($categories){
+                $query->whereIn('id', $categories);
+            });
+        }
+
+        $products = $products->get();
         return $this->response->get(['products' => [$products, new ProductTransformer]]);
     }
 
