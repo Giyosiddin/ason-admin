@@ -6,6 +6,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiController;
+use App\Transformer\ProductTransformer;
 use App\Transformer\CategoryTransformer;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 
@@ -49,7 +50,10 @@ class CategoryController extends ApiController
         $query = Category::query();
         if ($ids){
             $query->whereIn('id', $ids);
+                return $this->response->get(['categories' => [$query, new CategoryTransformer]]);
         }
+
+
 
         $categories = [];
         if ($parent_slug){
@@ -93,5 +97,14 @@ class CategoryController extends ApiController
     public function show(Category $category)
     {
       return $this->response->get(['category' => [$category, new CategoryTransformer]]);   
+    }
+
+
+    public function categoryProducts($id)
+    {
+        $category = Category::find($id);
+        $products = $category->products;
+        // dd();
+         return $this->response->get(['products' => [$products, new ProductTransformer]]);   
     }
 }

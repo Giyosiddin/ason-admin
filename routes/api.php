@@ -38,6 +38,7 @@ Route::group([
     Route::resource('cart', 'Api\CartController');
     Route::resource('countries', 'Api\CountryController');
     Route::resource('categories', 'Api\CategoryController');
+    Route::get('category-products/{id}', 'Api\CategoryController@categoryProducts');
     Route::resource('brands', 'Api\BrandController');
     Route::resource('banners', 'Api\BannerController');
     Route::resource('vacancies', 'Api\VacancyController');
