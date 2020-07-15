@@ -12,7 +12,7 @@ class CartTransformer extends TransformerAbstract
         return [
             'id' => $cart->id,
             'user_id' => $cart->user_id,
-            'meta' => $cart->meta
+            'meta' => json_decode($cart->meta, true),
         ];
     }
     public function includeProducts(Cart $cart){

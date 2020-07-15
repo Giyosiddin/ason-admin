@@ -6,6 +6,7 @@ use App\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiController;
+use App\Transformer\CartTransformer;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 
 class CartController extends ApiController
@@ -40,9 +41,11 @@ class CartController extends ApiController
      */
     public function index()
     {
-        $cart = auth()->user->cart;
+        $cart = auth()->user()->cart;
+        $cart = $cart->all();
+        // dd($cart->all());
         if (Is_null($cart)){
-			$cart = auth()->user->cart()->create();
+			$cart = auth()->user()->cart()->create();
         }
         return $this->response->get(['cart' => [$cart, new CartTransformer]]);
     }
@@ -107,5 +110,22 @@ class CartController extends ApiController
 
             return $this->response->get(['cart' => [$cart, new CartTransformer]]);
         }
+    }
+
+    public function addToCart()
+    {
+        $meta = request()->meta;
+        $data = [
+            'user_id' => auth()->user()->id,
+            'meta'    => $meta,
+        ];
+
+        $create = Cart::create($data);
+        if($create){
+        $cart = auth()->user()->cart;
+        $cart = $cart->all();
+            return $this->response->get(['cart' => [$cart, new CartTransformer]]);
+        }
+         return $this->response->get(['error' => "Product not added"]);
     }
 }
