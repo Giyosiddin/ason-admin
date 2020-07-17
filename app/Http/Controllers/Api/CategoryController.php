@@ -11,7 +11,8 @@ use App\Transformer\CategoryTransformer;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 
 class CategoryController extends ApiController
-{   
+{ 
+
     /**
      * @OA\Get(
      *     path="/categories",
@@ -49,8 +50,8 @@ class CategoryController extends ApiController
         
         $query = Category::query();
         if ($ids){
-            $query->whereIn('id', $ids);
-                return $this->response->get(['categories' => [$query, new CategoryTransformer]]);
+            $categories = $query->whereIn('id', $ids)->get();
+                return $this->response->get(['categories' => [$categories, new CategoryTransformer]]);
         }
 
 

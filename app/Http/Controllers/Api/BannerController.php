@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
-// use EllipseSynergie\ApiResponse\Laravel\Response;
 use Symfony\Component\HttpFoundation\Response;
 use App\Banner;
+use App\Transformer\BannerTransformer;
 
 class BannerController extends ApiController
 {
@@ -20,7 +20,7 @@ class BannerController extends ApiController
     {
         $banners = Banner::all();
 
-         return response(['banners' => $banners], 200);
+         return $this->response->get(['banners' => [$banners, new BannerTransformer]]);
     }
 
     /**
