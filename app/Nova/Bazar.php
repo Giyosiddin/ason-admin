@@ -3,21 +3,21 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Avatar;
 use Benjaminhirsch\NovaSlugField\Slug;
-use Benjaminhirsch\NovaSlugField\TextWithSlug;
-use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Benjaminhirsch\NovaSlugField\TextWithSlug;
 
-class Market extends Resource
+class Bazar extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Market';
+    public static $model = 'App\Bazar';
 
     /**
      * The single value that should be used to represent the resource when being displayed.

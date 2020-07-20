@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Market;
+use App\Bazar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformer\MarketTransformer;
+use App\Transformer\BazarTransformer;
 use App\Http\Controllers\Api\ApiController;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 
-class MarketController extends ApiController
+class BazarController extends ApiController
 {
     public function __constructor(Response $response) {
         parent::__constructor($response);
@@ -22,8 +22,8 @@ class MarketController extends ApiController
     public function index()
     {
         // dd('test');
-      $markets = Market::all();
-      return $this->response->get(['markets' => [$markets, new MarketTransformer]]);
+      $bazars = Bazar::all();
+      return $this->response->get(['bazars' => [$bazars, new BazarTransformer]]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MarketsTableSeeder extends Seeder
+class BazarsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,41 +14,41 @@ class MarketsTableSeeder extends Seeder
           $data = [
                 [
                   
-                    'name' => 'Bazar 1',
-                    'slug' => 'bazar-1',
-                    'address' => 'Bazar address',
+                    'name' => 'Chorsu',
+                    'slug' => 'chorsu',
+                    'address' => 'Chorsu',
                     'description' => 'Bazar description',
-                    'image' => '/images/alay-bazar.jpg',
+                    'image' => '/images/bazars/chorsu.jpg',
                 ],
                 [
                   
-                    'name' => 'Bazar 2',
-                    'slug' => 'bazar-2',
+                    'name' => 'Oloy bozori',
+                    'slug' => 'oloy-bozori',
                     'address' => 'Bazar address',
                     'description' => 'Bazar description',
-                    'image' => '/images/alay-bazar.jpg',
+                    'image' => '/images/bazars/alay-bazar.jpg',
                 ],
                 [
                   
-                    'name' => 'Bazar 3',
-                    'slug' => 'bazar-3',
+                    'name' => 'Otchopar',
+                    'slug' => 'otchopar',
                     'address' => 'Bazar address',
                     'description' => 'Bazar description',
-                    'image' => '/images/alay-bazar.jpg',
+                    'image' => '/images/bazars/buyum.jpg',
                 ],
                 [
                   
-                    'name' => 'Bazar 4',
-                    'slug' => 'bazar-4',
+                    'name' => 'Abu Saxiy',
+                    'slug' => 'abu-saxiy',
                     'address' => 'Bazar address',
                     'description' => 'Bazar description',
-                    'image' => '/images/alay-bazar.jpg',
+                    'image' => '/images/bazars/abu-saxiy.jpg',
                 ],               
 
             ];
 
         foreach ($data as $item) {
-            \App\Market::updateOrCreate(['name' => $item['name']],$item);           
+            \App\Bazar::updateOrCreate(['name' => $item['name']],$item);           
         }
 
     }
