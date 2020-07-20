@@ -122,8 +122,8 @@ class CartController extends ApiController
 
         $create = Cart::create($data);
         if($create){
-        $cart = auth()->user()->cart;
-        $cart = $cart->all();
+            $cart = auth()->user()->cart;
+            $cart = $cart->all();
             return $this->response->get(['cart' => [$cart, new CartTransformer]]);
         }
          return $this->response->get(['error' => "Product not added"]);
