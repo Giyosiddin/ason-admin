@@ -18,6 +18,7 @@ class CreateProductCategoriesTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->unsignedInteger('parent_id')->nullable();
+            $table->unsignedInteger('bazar_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->tinyInteger('order')->default(0);
             $table->unsignedInteger('left');
