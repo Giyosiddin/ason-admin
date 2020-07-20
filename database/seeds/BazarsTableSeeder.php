@@ -17,7 +17,7 @@ class BazarsTableSeeder extends Seeder
                     'name' => 'Chorsu',
                     'slug' => 'chorsu',
                     'address' => 'Chorsu',
-                    'description' => 'Bazar description',
+                    'description' => '1.000.000 dan oshiq tovarlar',
                     'image' => '/images/bazars/chorsu.jpg',
                 ],
                 [
@@ -25,7 +25,7 @@ class BazarsTableSeeder extends Seeder
                     'name' => 'Oloy bozori',
                     'slug' => 'oloy-bozori',
                     'address' => 'Bazar address',
-                    'description' => 'Bazar description',
+                    'description' => 'Markaziy bozor',
                     'image' => '/images/bazars/alay-bazar.jpg',
                 ],
                 [
@@ -33,7 +33,7 @@ class BazarsTableSeeder extends Seeder
                     'name' => 'Otchopar',
                     'slug' => 'otchopar',
                     'address' => 'Bazar address',
-                    'description' => 'Bazar description',
+                    'description' => 'Eng arzon narxlarda',
                     'image' => '/images/bazars/buyum.jpg',
                 ],
                 [
@@ -41,7 +41,7 @@ class BazarsTableSeeder extends Seeder
                     'name' => 'Abu Saxiy',
                     'slug' => 'abu-saxiy',
                     'address' => 'Bazar address',
-                    'description' => 'Bazar description',
+                    'description' => 'Istalgan turdagi kiyimlar',
                     'image' => '/images/bazars/abu-saxiy.jpg',
                 ],               
 
