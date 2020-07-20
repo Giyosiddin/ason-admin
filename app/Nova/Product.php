@@ -5,7 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\TextArea;
 use Hnassr\NovaKeyValue\KeyValue;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
@@ -57,10 +57,10 @@ class Product extends Resource
                     ->sortable()
                     ->rules('required', 'max:255')
                     ->autofill(),
+                TextArea::make('description'),
                   Text::make('Cost')
                     ->rules('required', 'numeric')
                     ->autofill(),
-                  Avatar::make('Cover image')->disk('public'),   
                   BelongsTo::make('Brand')->nullable(),
                   BelongsToMany::make('Categories'),     
                   Images::make('Gallary')
