@@ -43,6 +43,7 @@ Route::group([
     Route::resource('brands', 'Api\BrandController');
     Route::resource('banners', 'Api\BannerController');
     Route::resource('vacancies', 'Api\VacancyController');
+    Route::resource('markets', 'Api\MarketController');
     Route::group(['prefix' => 'pages'], function(){
       Route::get('home', 'Api\PageController@home');
     });
