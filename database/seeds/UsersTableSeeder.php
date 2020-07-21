@@ -16,12 +16,14 @@
                 [
                     'id' => 1,
                     'name' => 'admin',
+                    'type' => 'admin',
                     'email' => 'a@a.ru',
                     'password' => 12345678,
                 ],
                 [
                     'id' => 2,
                     'name' => 'user',
+                    'type' => 'user',
                     'email' => 'u@u.ru',
                     'password' => 12345678,
                 ]

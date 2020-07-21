@@ -14,8 +14,14 @@ class OrderController extends ApiController
       public function __construct(Response $response)
     {
         parent::__construct($response);
-        $this->middleware('auth:api', ['except' => ['login','registration']]);
+        // $this->middleware('auth:api', ['except' => ['login','registration']]);
     }
+
+    // public function create(Request $request)
+    // {
+    //     $data = $request;
+    //     dd($data);
+    // }
 
     /**
      * @OA\Get(
@@ -82,12 +88,11 @@ class OrderController extends ApiController
     public function store(Request $request)
     {
         $this->validate($request,[
-            'email' => 'required',
-            'country_id' => 'required',
-            'products' => 'required',
-            'delivery_info' => 'required',
+            'phone' => 'required',
+            'products' => 'required'
         ]);
-        $order = auth()->user->orders()->create($request->all());
+        // $order = auth()->user->orders()->create($request->all());
+        $order = Order::create($request->all());
         return $this->response->get(['order' => [$order, new OrderTransformer]]);
     }
 

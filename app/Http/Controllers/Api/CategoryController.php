@@ -47,14 +47,21 @@ class CategoryController extends ApiController
     {
         $parent_slug = request()->get('parent', false);
         $ids = request()->get('ids', false);
-        
+        $bazars = request()->get('bazars', false);
+
         $query = Category::query();
         if ($ids){
             $categories = $query->whereIn('id', $ids)->get();
                 return $this->response->get(['categories' => [$categories, new CategoryTransformer]]);
         }
 
-
+        if($bazars){
+            $query->whereHas('bazars', function($query_in) use ($bazars){ 
+                $query_in->whereIn('id', $bazars);
+            });
+            $categories = $query->get();
+            return $this->response->get(['categories' => [$categories, new CategoryTransformer]]);
+        }
 
         $categories = [];
         if ($parent_slug){

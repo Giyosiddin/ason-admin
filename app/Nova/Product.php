@@ -62,6 +62,7 @@ class Product extends Resource
                     ->rules('required', 'numeric')
                     ->autofill(),
                   BelongsTo::make('Brand')->nullable(),
+                  BelongsTo::make('Vendor','vendor', 'App\Nova\User')->nullable(),
                   BelongsToMany::make('Categories'),     
                   Images::make('Gallary')
                       ->conversionOnIndexView('thumb')

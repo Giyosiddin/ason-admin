@@ -46,4 +46,7 @@ class Category extends Model
   {
     return $this->belongsToMany('App\Property');
   }
+  public function bazars(){
+    return $this->belongsToMany('App\Bazar');
+  }
 }

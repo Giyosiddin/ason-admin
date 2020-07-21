@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('cover_image');
             $table->string('cost');
-            $table->tinyInteger('vender_id');
+            $table->tinyInteger('vendor_id');
             $table->tinyInteger('create_user')->nullable();
             $table->tinyInteger('update_user')->nullable();
             $table->jsonb('meta')->nullable();

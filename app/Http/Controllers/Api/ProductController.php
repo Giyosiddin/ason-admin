@@ -49,7 +49,10 @@ class ProductController extends ApiController
                 $query->whereIn('id', $categories);
             });
         }
-
+        if(is_array(request()->get('vender_id'))){
+            $vender_id = request()->get('vender_id');
+            $products->whereIn('vender_id',$vender_id);
+        }
         $products = $products->get();
         return $this->response->get(['products' => [$products, new ProductTransformer]]);
     }

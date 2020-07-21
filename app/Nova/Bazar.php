@@ -10,6 +10,8 @@ use Benjaminhirsch\NovaSlugField\Slug;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Benjaminhirsch\NovaSlugField\TextWithSlug;
 
+use Laravel\Nova\Fields\BelongsToMany;
+
 class Bazar extends Resource
 {
     /**
@@ -49,6 +51,7 @@ class Bazar extends Resource
               ->rules('required', 'max:255')
               ->slug('slug'),
             Slug::make('Slug'),
+             BelongsToMany::make('Categories'),  
             Text::make('Address'),
             Text::make('Description', 'description'),
             Avatar::make('Image')->disk('public'), 

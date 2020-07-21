@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Cart;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiController;
 use App\Transformer\CartTransformer;
+use App\Transformer\ProductTransformer;
 use EllipseSynergie\ApiResponse\Laravel\Response;
 
 class CartController extends ApiController
@@ -40,7 +42,16 @@ class CartController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        if(request()->get('products')){
+            $ids = request()->get('products');
+            // $products = Product::query();
+            $products = Product::whereIn('id', $ids)->get();
+            // dd($products);
+
+            return $this->response->get(['products' => [$products, new ProductTransformer]]);
+        }
+
         $cart = auth()->user()->cart;
         $cart = $cart->all();
         // dd($cart->all());

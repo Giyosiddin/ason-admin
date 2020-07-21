@@ -10,7 +10,8 @@ class OrderTransformer extends TransformerAbstract
     {
         return [
             'id' => $order->id,
-            'email' => $order->name,
+            'name' => $order->name,
+            'phone' => $order->phone,
             'status' => $order->status,
             'country_id' => $order->country_id,
             'products' => $order->products,
