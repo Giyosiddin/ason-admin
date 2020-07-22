@@ -54,10 +54,7 @@ class OrderController extends ApiController
      */
     public function index()
     {
-        // $orders = User::with('orders')->find(\Auth::id());
-        // dd($orders);
         $orders = auth()->user()->orders;
-        // dd($orders);
         return $this->response->get(['orders' => [$orders, new OrderTransformer]]);
     }
 
@@ -91,7 +88,6 @@ class OrderController extends ApiController
             'phone' => 'required',
             'products' => 'required'
         ]);
-        // $order = auth()->user->orders()->create($request->all());
         $order = Order::create($request->all());
         return $this->response->get(['order' => [$order, new OrderTransformer]]);
     }
