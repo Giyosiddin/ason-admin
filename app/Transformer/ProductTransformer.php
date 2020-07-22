@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class ProductTransformer extends TransformerAbstract
 {
     protected $availableIncludes = ['gallery', 'cover_image'];
-    protected $defaultIncludes = ['gallery', 'cover_image'];
+    protected $defaultIncludes = ['cover_image'];
 
     public function transform(Product $product)
     {

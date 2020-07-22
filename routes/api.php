@@ -35,7 +35,7 @@ Route::group([
 
     Route::resource('products', 'Api\ProductController');
     Route::resource('orders', 'Api\OrderController');
-    Route::resource('cart', 'Api\CartController');
+    Route::resource('carts', 'Api\CartController');
     Route::post('add-to-cart', 'Api\CartController@addToCart');
     Route::resource('countries', 'Api\CountryController');
     Route::resource('categories', 'Api\CategoryController');

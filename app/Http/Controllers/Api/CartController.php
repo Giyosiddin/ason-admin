@@ -45,7 +45,6 @@ class CartController extends ApiController
     {   
         $ids = request()->get('products');
         $products = Product::whereIn('id', $ids)->get();
-
         return $this->response->get(['products' => [$products, new ProductTransformer]]);
     }
 
