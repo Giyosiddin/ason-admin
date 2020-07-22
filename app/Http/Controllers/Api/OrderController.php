@@ -81,7 +81,18 @@ class OrderController extends ApiController
             'phone' => 'required',
             'products' => 'required'
         ]);
-        $order = Order::create($request->all());
+        $products_arr = json_decode($request->products, true);
+        $qty = 0;
+        foreach ($products_arr as $key => $value) {
+            $qty += $products_arr[$key]['quantity'];
+        }
+            $data = [
+                'name' => $request->name,
+                'products' => $request->products,
+                'phone' => $request->phone,
+                'overal' =>  $qty,
+            ];
+        $order = Order::create($data);
         return $this->response->get(['order' => [$order, new OrderTransformer]]);
     }
 
