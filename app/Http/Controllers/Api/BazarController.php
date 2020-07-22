@@ -21,11 +21,6 @@ class BazarController extends ApiController
      */
     public function index()
     {
-        // dd('test');
-      // $bazars = Bazar::query();
-      // if(is_array(request()->get('categories'))){
-      //   $categories = request()->get('categories');
-      // }
       $bazars = Bazar::all();
       return $this->response->get(['bazars' => [$bazars, new BazarTransformer]]);
     }

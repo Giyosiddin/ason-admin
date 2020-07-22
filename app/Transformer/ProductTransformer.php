@@ -16,7 +16,8 @@ class ProductTransformer extends TransformerAbstract
             'id' => $product->id,
             'title' => $product->title,
             'description' => $product->description,
-            'cost' => $product->cost * 1,
+            'cost' => $product->cost,
+            'vendor_id' => $product->vendor_id,
             'meta' => json_decode($product->meta, true),
         ];
     }

@@ -112,7 +112,6 @@ class CategoryController extends ApiController
     {
         $category = Category::find($id);
         $products = $category->products;
-        // dd();
          return $this->response->get(['products' => [$products, new ProductTransformer]]);   
     }
 }

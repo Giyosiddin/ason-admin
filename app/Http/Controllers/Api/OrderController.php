@@ -54,10 +54,7 @@ class OrderController extends ApiController
      */
     public function index()
     {
-        // $orders = User::with('orders')->find(\Auth::id());
-        // dd($orders);
         $orders = auth()->user()->orders;
-        // dd($orders);
         return $this->response->get(['orders' => [$orders, new OrderTransformer]]);
     }
 
