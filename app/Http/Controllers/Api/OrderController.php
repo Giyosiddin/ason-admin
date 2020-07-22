@@ -91,7 +91,6 @@ class OrderController extends ApiController
             'phone' => 'required',
             'products' => 'required'
         ]);
-        // $order = auth()->user->orders()->create($request->all());
         $order = Order::create($request->all());
         return $this->response->get(['order' => [$order, new OrderTransformer]]);
     }

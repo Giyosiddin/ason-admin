@@ -43,22 +43,9 @@ class CartController extends ApiController
      */
     public function index()
     {   
-        if(request()->get('products')){
-            $ids = request()->get('products');
-            // $products = Product::query();
-            $products = Product::whereIn('id', $ids)->get();
-            // dd($products);
-
-            return $this->response->get(['products' => [$products, new ProductTransformer]]);
-        }
-
-        $cart = auth()->user()->cart;
-        $cart = $cart->all();
-        // dd($cart->all());
-        if (Is_null($cart)){
-			$cart = auth()->user()->cart()->create();
-        }
-        return $this->response->get(['cart' => [$cart, new CartTransformer]]);
+        $ids = request()->get('products');
+        $products = Product::whereIn('id', $ids)->get();
+        return $this->response->get(['products' => [$products, new ProductTransformer]]);
     }
 
     /** 
