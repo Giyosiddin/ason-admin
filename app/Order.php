@@ -16,4 +16,12 @@ class Order extends Model
         'overal',
         'meta',
     ];
+      /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'products' => 'array',
+    ];
 }

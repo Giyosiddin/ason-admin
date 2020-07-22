@@ -81,18 +81,18 @@ class OrderController extends ApiController
             'phone' => 'required',
             'products' => 'required'
         ]);
-        $products_arr = json_decode($request->products, true);
-        $qty = 0;
-        foreach ($products_arr as $key => $value) {
-            $qty += $products_arr[$key]['quantity'];
+        $products = $request->products;
+        $qauntity = 0;
+        foreach ($products as $key => $value) {
+            $qauntity += $value['quantity'];
         }
-            $data = [
-                'name' => $request->name,
-                'products' => $request->products,
-                'phone' => $request->phone,
-                'overal' =>  $qty,
-            ];
-        $order = Order::create($data);
+        
+        $order = Order::create([
+            'name' => $request->name,
+            'products' => $products,
+            'phone' => $request->phone,
+            'overal' =>  $qauntity
+        ]);
         return $this->response->get(['order' => [$order, new OrderTransformer]]);
     }
 
@@ -125,7 +125,7 @@ class OrderController extends ApiController
      */
     public function show($id)
     {
-        $order = auth()->orders()->find($id);
+        $order =Order::find($id);
         return $this->response->get(['order' => [$order, new OrderTransformer]]);
     }
 

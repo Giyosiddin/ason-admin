@@ -28,7 +28,6 @@ class UpdateOrdersTable extends Migration
     {
        Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn('phone');
-
             $table->dropColumn('name');
         });
     }
