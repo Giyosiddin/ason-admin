@@ -14,14 +14,7 @@ class OrderController extends ApiController
       public function __construct(Response $response)
     {
         parent::__construct($response);
-        // $this->middleware('auth:api', ['except' => ['login','registration']]);
     }
-
-    // public function create(Request $request)
-    // {
-    //     $data = $request;
-    //     dd($data);
-    // }
 
     /**
      * @OA\Get(
