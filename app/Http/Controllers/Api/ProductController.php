@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Product;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use  App\Transformer\ProductTransformer;
@@ -85,4 +86,28 @@ class ProductController extends ApiController
         return $this->response->get(['product' => [$product, new ProductTransformer]]);
     }
 
+    public function store(Request $request)
+    {
+        if(Auth::check()){
+            $vendor_id = Auth::user()->id;
+
+            $data = [
+            'title' => $request->title,
+            'cost' => $request->cost,
+            'meta' => $request->meta,
+            'brand_id'  => $request->brand_id,
+            'parent_id' => $request->parent_id,
+            'description' => $request->description,
+            'vendor_id'  =>  $vendor_id
+            ];
+            $product = Product::create($data);
+            foreach ($request->file('gallery') as $file) {
+                $gallery = $product->addMedia($file)->toMediaCollection('gallery');
+            }
+            return $this->response->get(['product' => [$product, new ProductTransformer]]);
+        }else{
+            return abort(404, 'Page Not Found');
+        }
+        
+    }
 }

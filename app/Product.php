@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 class Product extends Model implements HasMedia
 {
 
-    protected $fillable=["id","title", "cover_image",'cost','meta','brand_id', 'description'];
+    protected $fillable=["id","title", "cover_image",'cost','meta','brand_id', 'description','vendor_id'];
     use HasMediaTrait;
 
     public function registerMediaConversions(Media $media = null)
