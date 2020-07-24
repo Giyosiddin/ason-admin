@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['gallery', 'cover_image'];
+    protected $availableIncludes = ['gallery', 'cover_image', 'vendor'];
     protected $defaultIncludes = ['cover_image'];
 
     public function transform(Product $product)
@@ -16,7 +16,7 @@ class ProductTransformer extends TransformerAbstract
             'id' => $product->id,
             'title' => $product->title,
             'description' => $product->description,
-            'cost' => $product->cost,
+            'cost' => $product->cost * 1,
             'vendor_id' => $product->vendor_id,
             'meta' => json_decode($product->meta, true),
         ];
@@ -34,5 +34,10 @@ class ProductTransformer extends TransformerAbstract
     public function includeGallery(Product $product)
     {
       return $this->collection($product->getMedia('gallary'), new MediaTransformer);
+    }
+    public function includeVendor(Product $product)
+    {
+        if ($product->vendor)
+            return $this->item($product->vendor, new UserTransformer);
     }
 }
