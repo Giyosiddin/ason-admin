@@ -43,7 +43,7 @@ class ProductController extends ApiController
      */
     public function index()
     {
-        $products = Product::query();
+        $products = Product::query()->limit(request()->get('limit', 10));
         if (is_array(request()->get('categories'))){
             $categories = request()->get('categories');
             $products->whereHas('categories', function($query) use ($categories){
