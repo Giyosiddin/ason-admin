@@ -73,15 +73,4 @@ class User extends Authenticatable implements JWTSubject, HasMedia
         return $this->hasMany('App\Order'); 
     }
 
-    public function registerMediaConversions(Media $media = null)
-    {
-        $this->addMediaConversion('thumb')
-            ->width(200)
-            ->height(200);
-    }
-
-    public function registerMediaCollections()
-    {
-        $this->addMediaCollection('profile');
-    }
 }

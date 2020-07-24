@@ -21,7 +21,7 @@ class BazarController extends ApiController
      */
     public function index()
     {
-      $bazars = Bazar::all();
+      $bazars = Bazar::limit(request()->get('limit', 10))->get();
       return $this->response->get(['bazars' => [$bazars, new BazarTransformer]]);
     }
 
