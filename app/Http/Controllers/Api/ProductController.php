@@ -88,25 +88,23 @@ class ProductController extends ApiController
 
     public function store(Request $request)
     {
+        \Log::info($request->all());
         if(Auth::check()){
             $vendor_id = Auth::user()->id;
-
             $data = [
-            'title' => $request->title,
-            'cost' => $request->cost,
-            'meta' => $request->meta,
-            'brand_id'  => $request->brand_id,
-            'parent_id' => $request->parent_id,
-            'description' => $request->description,
-            'vendor_id'  =>  $vendor_id
+                'title' => $request->title,
+                'cost' => $request->cost,
+                'brand_id'  => $request->brand_id,
+                'description' => $request->description,
+                'vendor_id'  =>  $vendor_id
             ];
             $product = Product::create($data);
-            foreach ($request->file('gallery') as $file) {
-                $gallery = $product->addMedia($file)->toMediaCollection('gallery');
+            foreach ($request->gallary as $file) {
+                $gallary = $product->addMedia($file)->toMediaCollection('gallary');;
             }
             return $this->response->get(['product' => [$product, new ProductTransformer]]);
         }else{
-            return abort(404, 'Page Not Found');
+            return abort(401);
         }
         
     }

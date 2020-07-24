@@ -10,14 +10,14 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 class Product extends Model implements HasMedia
 {
 
-    protected $fillable=["id","title", "cover_image",'cost','meta','brand_id', 'description','vendor_id'];
+    protected $fillable=["title",'cost', 'meta', 'brand_id', 'description', 'vendor_id'];
     use HasMediaTrait;
 
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
-            ->width(130)
-            ->height(130);
+            ->width(200)
+            ->height(200);
     }
 
     public function registerMediaCollections()
