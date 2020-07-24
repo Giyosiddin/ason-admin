@@ -84,9 +84,13 @@ return [
         /* Home page settings */
          [
             'key' => 'bazars',
-            'type' => 'code',
+            'type' => 'select',
             'label' => 'Select Bazars for home',
             'panel' => 'Social',
+            'options' => [
+                'desc' => 'Desc',
+                'desc_2' => 'Desc 2',
+            ],
         ],
 
     ],
