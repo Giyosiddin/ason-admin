@@ -88,7 +88,6 @@ class ProductController extends ApiController
 
     public function store(Request $request)
     {
-        \Log::info($request->all());
         if(Auth::check()){
             $vendor_id = Auth::user()->id;
             $data = [
