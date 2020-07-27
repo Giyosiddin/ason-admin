@@ -108,4 +108,35 @@ class ProductController extends ApiController
         }
         
     }
+
+    public function destroy($id)
+    {
+        $destroy = Product::destroy($id);
+
+        return ['massage' => "Deleted Product"]; 
+    }
+    public function update(Request $request,$id)
+    {
+            // dd($request->all());
+
+        if(Auth::check()){
+            $vendor_id = Auth::user()->id;
+            $data = [
+                'title' => $request->title,
+                'cost' => $request->cost,
+                'brand_id'  => $request->brand_id,
+                'description' => $request->description
+            ];
+            $product = Product::find($id);
+            $product->where('vendor_id','=', $vendor_id)->update($data);
+            if($request->gallary) {
+                foreach ($request->gallary as $file) {
+                    $gallary = $product->addMedia($file)->toMediaCollection('gallary');;
+                }
+            }
+            return $this->response->get(['product' => [$product, new ProductTransformer]]);
+        }else{
+            return abort(401);
+        }
+    }
 }
