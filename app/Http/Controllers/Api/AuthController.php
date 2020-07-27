@@ -83,7 +83,10 @@ class AuthController extends ApiController
             'password_confirmation' => 'required|min:6',
         ]);
         $credentials = request(['name','email', 'password']);
+
         $user = User::create($credentials);
+        $profile = $request->file('profile');
+         $profile_img = $user->addMedia($profile)->toMediaCollection('profile');;
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -188,16 +191,13 @@ class AuthController extends ApiController
     
     public function editProfile(Request $request)
     {
-      $id = $request->id;
+      $id = Auth::user()->id;
       $profile = User::find($id);
       if($request->isMethod('post')){
           $data = $request->input();
-          // $data['password'] = \Hash::make($data['password']);
-          // if(empty($data['password'])){
-          //     $data['password'] = $profile->password;
-          // }
-
+          // dd($data);
           $profile->update($data);
+         $profile_img = $profile->addMedia($request->file('profile'))->toMediaCollection('profile');;
           $save = $profile->save();
              if($save){
               return response()->json([
