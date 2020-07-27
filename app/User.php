@@ -84,7 +84,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
     public function registerMediaCollections()
     {
         $this->addMediaCollection('profile');
-
+    }
     public function products()
     {
         return $this->hasMany('App\Product', 'id', 'vendor_id');
