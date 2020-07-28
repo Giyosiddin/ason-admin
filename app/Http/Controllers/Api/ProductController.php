@@ -14,6 +14,7 @@ class ProductController extends ApiController
 {
     public function __constructor(Response $response) {
         parent::__constructor($response);
+        $this->middleware('auth:api', ['except' => ['login','registration']]);
     }
     /**
      * @OA\Get(
@@ -88,25 +89,20 @@ class ProductController extends ApiController
 
     public function store(Request $request)
     {
-        \Log::info($request->all());
-        if(Auth::check()){
-            $vendor_id = Auth::user()->id;
-            $data = [
-                'title' => $request->title,
-                'cost' => $request->cost,
-                'brand_id'  => $request->brand_id,
-                'description' => $request->description,
-                'vendor_id'  =>  $vendor_id
-            ];
-            $product = Product::create($data);
-            foreach ($request->gallary as $file) {
-                $gallary = $product->addMedia($file)->toMediaCollection('gallary');;
-            }
-            return $this->response->get(['product' => [$product, new ProductTransformer]]);
-        }else{
-            return abort(401);
+
+        $vendor_id = Auth::user()->id;
+        $data = [
+            'title' => $request->title,
+            'cost' => $request->cost,
+            'brand_id'  => $request->brand_id,
+            'description' => $request->description,
+            'vendor_id'  =>  $vendor_id
+        ];
+        $product = Product::create($data);
+        foreach ($request->gallary as $file) {
+            $gallary = $product->addMedia($file)->toMediaCollection('gallary');
         }
-        
+           
     }
 
     public function destroy($id)
@@ -115,28 +111,32 @@ class ProductController extends ApiController
 
         return ['massage' => "Deleted Product"]; 
     }
+
+
     public function update(Request $request,$id)
     {
-            // dd($request->all());
-
-        if(Auth::check()){
-            $vendor_id = Auth::user()->id;
-            $data = [
-                'title' => $request->title,
-                'cost' => $request->cost,
-                'brand_id'  => $request->brand_id,
-                'description' => $request->description
-            ];
-            $product = Product::find($id);
-            $product->where('vendor_id','=', $vendor_id)->update($data);
-            if($request->gallary) {
-                foreach ($request->gallary as $file) {
-                    $gallary = $product->addMedia($file)->toMediaCollection('gallary');;
-                }
+        $vendor_id = auth()->user()->id;
+        $data = [
+            'title' => $request->title,
+            'cost' => $request->cost,
+            'brand_id'  => $request->brand_id,
+            'description' => $request->description
+        ];
+        $product = Product::find($id);
+        $product->where('vendor_id','=', $vendor_id)->update($data);
+        if($request->deleted_files){
+            $deleted_files = $request->deleted_files;
+            $deleted_media = $product->getMedia('gallary')->whereIn('id',[$deleted_files]);            
+            foreach($deleted_media as $del_media){
+                $del_media->delete();
             }
-            return $this->response->get(['product' => [$product, new ProductTransformer]]);
-        }else{
-            return abort(401);
         }
+        if($request->gallary) {
+            foreach ($request->gallary as $file) {
+                $gallary = $product->addMedia($file)->toMediaCollection('gallary');
+            }
+        }
+        return $this->response->get(['product' => [$product, new ProductTransformer]]);
+       
     }
 }
