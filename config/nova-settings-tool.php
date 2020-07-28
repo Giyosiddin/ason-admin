@@ -82,15 +82,21 @@ return [
         ],
 
         /* Home page settings */
-         [
+        [
             'key' => 'bazars',
             'type' => 'select',
             'label' => 'Select Bazars for home',
             'panel' => 'Social',
             'options' => [
-                'desc' => 'Desc',
-                'desc_2' => 'Desc 2',
+                'desc' => 'Bazar 1',
+                'desc_2' => 'Bazar 2',
             ],
+        ],
+        [
+            'key' => 'default_img_product',
+            'type' => 'text',
+            'label' => 'Default image product',
+            
         ],
 
     ],
