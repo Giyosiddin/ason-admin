@@ -10,6 +10,7 @@ class MediaTransformer extends TransformerAbstract
     {
       
       return [
+            'id' => $media->id,
             'name' => $media->name,
             'collection_name' => $media->collection_name,
             'file_name' => $media->file_name,
