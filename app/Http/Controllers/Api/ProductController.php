@@ -114,28 +114,28 @@ class ProductController extends ApiController
 
         return ['massage' => "Deleted Product"]; 
     }
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-            // dd($request->all());
 
-        if(Auth::check()){
-            $vendor_id = Auth::user()->id;
-            $data = [
-                'title' => $request->title,
-                'cost' => $request->cost,
-                'brand_id'  => $request->brand_id,
-                'description' => $request->description
-            ];
-            $product = Product::find($id);
-            $product->where('vendor_id','=', $vendor_id)->update($data);
-            if($request->gallary) {
-                foreach ($request->gallary as $file) {
-                    $gallary = $product->addMedia($file)->toMediaCollection('gallary');;
-                }
-            }
-            return $this->response->get(['product' => [$product, new ProductTransformer]]);
-        }else{
-            return abort(401);
+        $product = auth()->user()->products()->find($id);
+        if (is_null($product))
+        {
+            abort(404);
         }
+
+        $data = [
+            'title' => $request->title,
+            'cost' => $request->cost,
+            'brand_id'  => $request->brand_id,
+            'description' => $request->description
+        ];
+        $product->update($data);
+        if($request->gallary) {
+            foreach ($request->gallary as $file) {
+                $gallary = $product->addMedia($file)->toMediaCollection('gallary');;
+            }
+        }
+        return $this->response->get(['product' => [$product, new ProductTransformer]]);
+
     }
 }
