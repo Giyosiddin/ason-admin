@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','profile',
+        'name', 'email', 'password','avatar',
     ];
 
     /**
@@ -83,7 +83,7 @@ class User extends Authenticatable implements JWTSubject, HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection('profile');
+        $this->addMediaCollection('avatar');
     }
     public function products()
     {
