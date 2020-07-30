@@ -55,6 +55,9 @@ class ProductController extends ApiController
             $vendor_id = request()->get('vendor_id');
             $products->whereIn('vendor_id',$vendor_id);
         }
+
+
+
         $products = $products->get();
         return $this->response->get(['products' => [$products, new ProductTransformer]]);
     }
@@ -138,5 +141,27 @@ class ProductController extends ApiController
         }
         return $this->response->get(['product' => [$product, new ProductTransformer]]);
        
+    }
+
+    public function filter()
+    {
+        $products = Product::query();
+        if(request()->title){
+            $keyword = request()->title;
+            $products->where('title', 'like', '%'.$keyword.'%');
+        }
+        if(request()->categories){
+            $categories = request()->get('categories');
+            $products->whereHas('categories', function($query) use ($categories){
+                $query->whereIn('categories.id', $categories);
+            });
+        }
+        if(request()->min_price && request()->max_price){
+            $min_price = request()->min_price;
+            $max_price = request()->max_price;
+            $products->whereBetween('cost', [$min_price, $max_price]);
+        }
+        $products = $products->get();
+        return $this->response->get(['products' => [$products, new ProductTransformer]]);
     }
 }

@@ -47,4 +47,6 @@ Route::group([
     Route::group(['prefix' => 'pages'], function(){
       Route::get('home', 'Api\PageController@home');
     });
+    Route::post('filter', 'Api\ProductController@filter');
+
 });
